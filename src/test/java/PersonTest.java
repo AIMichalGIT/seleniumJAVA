@@ -8,5 +8,13 @@ public class PersonTest {
         teacher.eat();
         teacher.sayHello();
         teacher.teachMath();
+
+        System.out.println(" ");
+
+        Footballer footballer = new Footballer("Cristiano", 39, "Sporting");
+        footballer.sayHello();
+        footballer.playFootball();
+        footballer.walk();
+        footballer.eat();
     }
 }
