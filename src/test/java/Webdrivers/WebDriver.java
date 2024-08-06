@@ -2,6 +2,6 @@ package Webdrivers;
 
 public interface WebDriver {
     void get(String website);
-    void findElementBy(String locator)
+    void findElementBy(String locator);
 
 }
