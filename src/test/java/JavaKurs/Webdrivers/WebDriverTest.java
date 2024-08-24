@@ -8,7 +8,7 @@ public class WebDriverTest {
 //    }
     public static void main(String[] args) throws NoValidBrowserName {
 
-        DriverType[] driverTypes = DriverType.values();
+        InnyDriverType[] driverTypes = InnyDriverType.values();
         for (int i = 0; i<driverTypes.length; i++) {
             System.out.println(driverTypes[i].name);
             System.out.println(driverTypes[i].path);
@@ -16,7 +16,7 @@ public class WebDriverTest {
 
         System.out.println("Wykonuję kod po przeczytaniu dostępnych driverów");
 
-        InnyWebDriver driver = getDriver(DriverType.CHROME);
+        InnyWebDriver driver = getDriver(InnyDriverType.CHROME);
         driver.get("https://www");
         driver.findElementBy("xPath");
 
@@ -46,13 +46,13 @@ public class WebDriverTest {
 //    }
 
 // z wykorzystaniem ENUMA podejscie cz2
-private static FirefoxDriver getDriver(DriverType type) {
+private static InnyFirefoxDriver getDriver(InnyDriverType type) {
     if (type.name.equals("chrome")) {
         System.out.println(type.path);
-        return new FirefoxDriver();
+        return new InnyFirefoxDriver();
     }
     System.out.println(type.path);
-    return new FirefoxDriver();
+    return new InnyFirefoxDriver();
 
     }
 }
