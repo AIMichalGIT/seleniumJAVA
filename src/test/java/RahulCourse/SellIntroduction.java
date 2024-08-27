@@ -37,7 +37,7 @@ public class SellIntroduction {
 //        WebDriver driver = new EdgeDriver;
 
 
-        // Otworzenie strony
+        // Otwarcie strony
         driver.get("https://rahulshettyacademy.com/");
 
         // Wypisanie tytułu strony
