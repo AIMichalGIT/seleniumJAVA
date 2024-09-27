@@ -1,5 +1,7 @@
 package RahulCourse;
 
+
+import java.time.Duration;
 import java.util.Arrays;
 
 import java.util.List;
@@ -21,10 +23,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class AddingItemsToCartForEcommerceApp {
+public class ImplicitExplicitWait {
 
 
     public static void main(String[] args) throws InterruptedException {
+
 
         System.setProperty
                 ("webdriver.chrome.driver", "C:/Users/48883/Documents/Automatyzacja kurs/KursJavaSelenium/pliki/chromedriver-win32/chromedriver.exe");
@@ -33,7 +36,13 @@ public class AddingItemsToCartForEcommerceApp {
         options.addArguments("start-maximized"); // Dodatkowy argument do maksymalizacji okna
         WebDriver driver = new ChromeDriver(options);
 
+        //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+
         String[] itemsNeeded = {"Cucumber", "Brocolli", "Beetroot"};
+
 
         driver.get("https://rahulshettyacademy.com/seleniumPractise/");
 
@@ -41,7 +50,28 @@ public class AddingItemsToCartForEcommerceApp {
 
         addItems(driver, itemsNeeded);
 
+        driver.findElement(By.cssSelector("img[alt='Cart']")).click();
+
+        driver.findElement(By.xpath("//button[contains(text(),'PROCEED TO CHECKOUT')]")).click();
+
+        w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input.promoCode")));
+
+
+        driver.findElement(By.cssSelector("input.promoCode")).sendKeys("rahulshettyacademy");
+
+        driver.findElement(By.cssSelector("button.promoBtn")).click();
+
+//explicit wait
+
+
+        w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.promoInfo")));
+
+
+        System.out.println(driver.findElement(By.cssSelector("span.promoInfo")).getText());
+
+
     }
+
 
     public static void addItems(WebDriver driver, String[] itemsNeeded) {
 
@@ -49,7 +79,9 @@ public class AddingItemsToCartForEcommerceApp {
 
         List<WebElement> products = driver.findElements(By.cssSelector("h4.product-name"));
 
+
         for (int i = 0; i < products.size(); i++) {
+
 
 //Brocolli - 1 Kg
 
@@ -59,15 +91,19 @@ public class AddingItemsToCartForEcommerceApp {
 
             String formattedName = name[0].trim();
 
+
 //format it to get actual vegetable name
 
 //convert array into array list for easy search
 
 //  check whether name you extracted is present in arrayList or not-
 
+
             List itemsNeededList = Arrays.asList(itemsNeeded);
 
+
             if (itemsNeededList.contains(formattedName)) {
+
 
                 j++;
 
@@ -75,11 +111,13 @@ public class AddingItemsToCartForEcommerceApp {
 
                 driver.findElements(By.xpath("//div[@class='product-action']/button")).get(i).click();
 
+
                 if (j == itemsNeeded.length) {
 
                     break;
 
                 }
+
 
             }
 
@@ -89,5 +127,4 @@ public class AddingItemsToCartForEcommerceApp {
 
 
 }
-
 
