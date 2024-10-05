@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Exercise3SynchronizationWithExplicitWaitAssignement {
 
@@ -21,7 +22,8 @@ public class Exercise3SynchronizationWithExplicitWaitAssignement {
         options.addArguments("start-maximized");
         WebDriver driver = new ChromeDriver(options);
 
-       // WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(5));
+        //explicitWait
+        WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(5));
 
         driver.get("https://rahulshettyacademy.com/loginpagePractise/");
 
@@ -37,19 +39,33 @@ public class Exercise3SynchronizationWithExplicitWaitAssignement {
         System.out.println("Extracted password: " + passwordToFill);
         driver.findElement(By.id("password")).sendKeys(passwordToFill);
 
-//        //Radiobutton User
-//        driver.findElement(By.xpath("")).click();
-//
-//        //Dropdown Consultant
-//        driver.findElement(By.xpath("")).click();
-//
-//        //Checkbox
-//        driver.findElement(By.xpath("")).click();
-//
-//        //Sign in button
-//        driver.findElement(By.xpath("")).click();
+        //Radiobutton User
+        driver.findElement(By.cssSelector("input[type='radio'][value='user'][id='usertype']")).click();
 
-//        w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("")));
+        //okButtonConfirm
+        w.until(ExpectedConditions.visibilityOfElementLocated(By.id("okayBtn")));
+        driver.findElement(By.id("okayBtn")).click();
+
+        //Dropdown Consultant
+        driver.findElement(By.xpath("//select[@class='form-control']/option[@value='consult']")).click();
+
+        //Checkbox
+        driver.findElement(By.xpath("//input[@id='terms']")).click();
+
+        //Sign in button
+        driver.findElement(By.xpath("//input[@id='signInBtn']")).click();
+
+        //addingItemsToCard
+        w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='card-footer']//button[@class='btn btn-info']")));
+        List<WebElement> buttons = driver.findElements(By.xpath("//div[@class='card-footer']//button[@class='btn btn-info']"));
+        for (WebElement button : buttons) {
+            button.click();
+        }
+
+        //CheckoutButton
+        driver.findElement(By.xpath("//a[@class='nav-link btn btn-primary']")).click();
+
+
     }
     private static String extractValue(String text, String startKeyword, String endKeyword) {
         int startIndex = text.indexOf(startKeyword) + startKeyword.length();
